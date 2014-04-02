@@ -8,6 +8,10 @@ cd ../data;
 addpath(pwd);
 cd ../src;
 
+% load data 
+[trainX trainY] = ReadData('../data/train.txt');
+[testX testY] = ReadData('../data/test.txt');
+
 
 %%
 %---------------------------------------------------
