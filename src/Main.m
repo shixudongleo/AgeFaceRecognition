@@ -55,8 +55,12 @@ close all;
 clear all;
 % load data 
 [trainX trainY] = ReadData('../data/train.txt');
-[testX testY] = ReadData('../data/test.txt');
-
+num_nmf_basis = 50;
+W = NMF(trainX, num_nmf_basis);
+for ii = 1:num_nmf_basis
+   face = DisplaySequences(W(:, ii));
+   imwrite(face, ['../data/output/nmf_face_', num2str(ii), '.png'], 'PNG');
+end
 
 
 %%
