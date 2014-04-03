@@ -14,6 +14,13 @@ function [X Y] = ReadData(load_list)
 % Y             :   classification label
 
 face_folder = '../data/AgeFaceDataset/';
+data_path = strrep(load_list, '../data/', face_folder);
+data_path = strrep(data_path, '.txt', '.mat');
+
+if exist(data_path)
+    load(data_path);
+    return
+end
 
 fid = fopen(load_list, 'r');
 if (fid == -1)
@@ -37,4 +44,6 @@ end
 
 X = double(X);
 Y = int8(Y);
+save(data_path, 'X', 'Y');
+
 end
