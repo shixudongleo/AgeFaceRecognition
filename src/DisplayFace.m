@@ -4,7 +4,7 @@
 % date      : 2014.04.01
 %---------------------------------------------------
 
-function [] = DisplayFace(vector)
+function [face] = DisplayFace(vector)
 % display vector as face (pixel value 0-255)
 % input:
 % vector     :   vecotr to be displayed
@@ -21,6 +21,7 @@ vector_0_255 = uint8(255*vec_norm);
 
 % display
 face = reshape(vector_0_255, rows, cols);
+figure;
 imshow(face);
 
 end
