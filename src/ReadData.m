@@ -35,4 +35,6 @@ for ii = 1:list_len
     Y(ii) = str2num(cell_list{1}{ii}(1:3));
 end
 
+X = double(X);
+Y = int8(Y);
 end
