@@ -24,7 +24,7 @@ num_eig_faces = 10;
 PCs = PCA(trainX, num_eig_faces);
 for ii = 1:num_eig_faces
    face = DisplayFace(PCs(:, ii)); 
-   imwrite(face, ['../data/ouput/eigenface_', num2str(ii), '.png'], 'PNG');
+   imwrite(face, ['../data/output/eigenface_', num2str(ii), '.png'], 'PNG');
 end
 
 max_dim = 286;
@@ -44,7 +44,7 @@ accuracy = sum(testY == y_knn)/length(testY);
 fprintf('The accuracy for dim: %d is: %f\n', ii, accuracy);
 precisions(ii) = accuracy;
 end
-save('../data/ouput/eigen_accuracy.mat', 'precisions');
+save('../data/output/eigen_accuracy.mat', 'precisions');
 
 
 %%
@@ -60,21 +60,21 @@ num_nmf_basis = 50;
 W = NMF(trainX, num_nmf_basis);
 for ii = 1:num_nmf_basis
    face = DisplayFace(W(:, ii));
-   imwrite(face, ['../data/output/nmf_face_round1_', num2str(ii), '.png'], 'PNG');
+   imwrite(face, ['../data/output/nmfface_round1_', num2str(ii), '.png'], 'PNG');
 end
 
 % second trial
 W = NMF(trainX, num_nmf_basis);
 for ii = 1:num_nmf_basis
    face = DisplayFace(W(:, ii));
-   imwrite(face, ['../data/output/nmf_face_round2_', num2str(ii), '.png'], 'PNG');
+   imwrite(face, ['../data/output/nmfface_round2_', num2str(ii), '.png'], 'PNG');
 end
 
 % third trial
 W = NMF(trainX, num_nmf_basis);
 for ii = 1:num_nmf_basis
    face = DisplayFace(W(:, ii));
-   imwrite(face, ['../data/output/nmf_face_round3_', num2str(ii), '.png'], 'PNG');
+   imwrite(face, ['../data/output/nmfface_round3_', num2str(ii), '.png'], 'PNG');
 end
 
 %%

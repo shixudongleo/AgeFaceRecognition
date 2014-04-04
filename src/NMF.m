@@ -18,15 +18,18 @@ X = transpose(X);
 
 [d N] = size(X);
 
-min_v = 10;
-max_v = 20;
+
 
 % initialization
+k = rand()*10;
+
+min_v = k*10;
+max_v = k*20;
 W = min_v + (max_v - min_v)*rand(d, num_basis, 'double');
 H = min_v + (max_v - min_v)*rand(num_basis, N, 'double');
 
-max_iter = 1000;
-threshold = 0.1;
+max_iter = 10000;
+threshold = 1;
 
 
 for ii = 1:max_iter
