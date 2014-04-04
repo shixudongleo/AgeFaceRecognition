@@ -56,11 +56,25 @@ clear all;
 % load data 
 [trainX trainY] = ReadData('../data/train.txt');
 num_nmf_basis = 50;
+% first trial 
 W = NMF(trainX, num_nmf_basis);
 for ii = 1:num_nmf_basis
-   face = DisplaySequences(W(:, ii));
-   imwrite(face, ['../data/output/nmf_face_', num2str(ii), '.png'], 'PNG');
+   face = DisplayFace(W(:, ii));
+   imwrite(face, ['../data/output/nmf_face_round1_', num2str(ii), '.png'], 'PNG');
 end
 
+% second trial
+W = NMF(trainX, num_nmf_basis);
+for ii = 1:num_nmf_basis
+   face = DisplayFace(W(:, ii));
+   imwrite(face, ['../data/output/nmf_face_round2_', num2str(ii), '.png'], 'PNG');
+end
+
+% third trial
+W = NMF(trainX, num_nmf_basis);
+for ii = 1:num_nmf_basis
+   face = DisplayFace(W(:, ii));
+   imwrite(face, ['../data/output/nmf_face_round3_', num2str(ii), '.png'], 'PNG');
+end
 
 %%

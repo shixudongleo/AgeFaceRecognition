@@ -21,6 +21,7 @@ X = transpose(X);
 min_v = 10;
 max_v = 20;
 
+% initialization
 W = min_v + (max_v - min_v)*rand(d, num_basis, 'double');
 H = min_v + (max_v - min_v)*rand(num_basis, N, 'double');
 
@@ -40,7 +41,9 @@ for ii = 1:max_iter
    
    diff_H = norm(H - H_tmp);
    diff_W = norm(W - W_tmp);
-
+    
+   fprintf('The %dth iteration: diff_W is %f diff_H is %f \n', ii, diff_W, diff_H);
+   
    if diff_H <= threshold && diff_W <= threshold
        return 
    end
