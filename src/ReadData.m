@@ -43,7 +43,6 @@ for ii = 1:list_len
 end
 
 X = double(X);
-Y = int8(Y);
 save(data_path, 'X', 'Y');
 
 end
