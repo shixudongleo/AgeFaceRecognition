@@ -29,9 +29,10 @@ end
 
 max_dim = 286;
 precisions = zeros(max_dim, 1);
+PCs = PCA(trainX, max_dim);
 for ii = 1:max_dim
 % feature reduction
-T = PCA(trainX, ii);
+T = PCs(:, 1:ii);
 trainX_PCA = trainX * T;% transpose both side;
 testX_PCA = testX * T;% transpose both side;
 
@@ -81,16 +82,47 @@ end
 %---------------------------------------------------
 % 3. Linear Discriminant Analysis
 %---------------------------------------------------
+close all;
+clear all;
 
+% load data 
+[trainX trainY] = ReadData('../data/train.txt');
+[testX testY] = ReadData('../data/test.txt');
 
+% PCA feature reduction to 500, in case of singular issue
+num_PCAs = 500;
+PCs = PCA(trainX, num_PCAs);
+trainX_PCA = trainX * PCs;
+testX_PCA = testX *PCs;
 
+% Display 10 Fisherfaces
+num_fisher_faces = 10;
+LDAs = LDA(trainX_PCA, trainY, num_fisher_faces);
+LDAs = PCs*LDAs;
+for ii = 1:num_fisher_faces
+   face = DisplayFace(LDAs(:, ii)); 
+   imwrite(face, ['../data/output/fisherface_', num2str(ii), '.png'], 'PNG');
+end
 
+max_dim = 286;
+precisions = zeros(max_dim, 1);
+LDAs = LDA(trainX_PCA, trainY, max_dim);
+for ii = 1:max_dim
+% feature reduction
+T = LDAs(:, 1:ii);
+trainX_LDA = trainX_PCA * T;% transpose both side;
+testX_LDA = testX_PCA * T;% transpose both side;
 
+% KNN training
+knn_model = ClassificationKNN.fit(trainX_LDA, trainY);
+y_knn = predict(knn_model, testX_LDA);    
 
-
-
-
-
+% calculate precisions 
+accuracy = sum(testY == y_knn)/length(testY);
+fprintf('The accuracy for dim: %d is: %f\n', ii, accuracy);
+precisions(ii) = accuracy;
+end
+save('../data/output/fish_accuracy.mat', 'precisions');
 
 
 
