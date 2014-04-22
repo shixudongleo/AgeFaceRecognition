@@ -56,15 +56,18 @@ close all;
 clear all;
 % load data 
 [trainX trainY] = ReadData('../data/train.txt');
+[testX testY] = ReadData('../data/test.txt');
+allData = [trainX; testX];
 num_nmf_basis = 50;
 % first trial 
-W = NMF(trainX, num_nmf_basis);
+W = NMF(allData, num_nmf_basis);
 for ii = 1:num_nmf_basis
    face = DisplayFace(W(:, ii));
    imwrite(face, ['../data/output/nmfface_round1_', num2str(ii), '.png'], 'PNG');
 end
 
 % second trial
+close all;
 W = NMF(trainX, num_nmf_basis);
 for ii = 1:num_nmf_basis
    face = DisplayFace(W(:, ii));
@@ -72,6 +75,7 @@ for ii = 1:num_nmf_basis
 end
 
 % third trial
+close all;
 W = NMF(trainX, num_nmf_basis);
 for ii = 1:num_nmf_basis
    face = DisplayFace(W(:, ii));
@@ -130,4 +134,28 @@ save('../data/output/fish_accuracy.mat', 'precisions');
 %---------------------------------------------------
 % 4. Gaussian Mixture Model
 %---------------------------------------------------
+close all;
+clear all;
+
+% load data 
+[trainX trainY] = ReadData('../data/train.txt');
+[testX testY] = ReadData('../data/test.txt');
+allData = [trainX; testX];
+
+% PCA feature reduction to 500, in case of singular issue
+num_PCAs = 50;
+PCs = PCA(allData, num_PCAs);
+X_PCA = allData * PCs;
+
+num_gaussians = 8;
+[w mu sigma] = GMM(X_PCA, num_gaussians);
+mu = transpose(mu);
+
+mean_faces = PCs*mu;
+
+for ii = 1:num_gaussians
+   face = DisplayFace(mean_faces(:, ii)); 
+   imwrite(face, ['../data/output/GMMFace_', num2str(ii), '.png'], 'PNG');
+end
+
 
