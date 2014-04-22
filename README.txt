@@ -14,13 +14,13 @@ a brief introduction of the project code structure is give:
     -- train.txt  
     -- test.txt    
 -- src
-	-- ReadData.m
+    -- ReadData.m
     -- DisplayFace.m
-	-- NFM.m
+    -- NFM.m
     -- PCA.m
-	-- LDA.m
-	-- GMM.m
-	-- Main.m
+    -- LDA.m
+    -- GMM.m
+    -- Main.m
 
 
 -- ReadData.m 
