@@ -40,8 +40,8 @@ a brief introduction of the project code structure is give:
    do LDA basis finding
 		
 -- GMM.m 
-	finding GMM Model using EM algorithm
+   finding GMM Model using EM algorithm
 		
 -- Main.m
-		All subtasks are organized into sections 
+   All subtasks are organized into sections 
 
